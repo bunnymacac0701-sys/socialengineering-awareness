@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Impersonation</title>
+<style>
+body {
+    margin: 0;
+    font-family: monospace;
+    background: #14001f;
+    color: #ff00ff;
+}
+
+nav {
+    background: black;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid #ff00ff;
+}
+
+nav button {
+    background: transparent;
+    border: 2px solid #ff00ff;
+    color: #ff00ff;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background: #ff00ff;
+    color: black;
+    box-shadow: 0 0 20px #ff00ff;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px; 
+    animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+    0% {text-shadow: 2px 0 red;}
+    50% {text-shadow: -2px 0 blue;}
+    100% {text-shadow: 2px 0 red;}
+}
+
+.card {
+    background: #240033;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    border: 1px solid #ff00ff;
+}
+
+/* === SIMULATION CARD (NORMAL FLOW, NO OVERLAP) === */
+
+.simulation-card {
+    background: #0d0014;
+    border: 2px solid red;
+    box-shadow: 0 0 25px red;
+    animation: pulseGlow 2s infinite alternate, fadeIn 1s ease-in;
+}
+
+.simulation-card h2 {
+    color: red;
+    text-align: center;
+}
+
+@keyframes pulseGlow {
+    from { box-shadow: 0 0 10px red; }
+    to { box-shadow: 0 0 35px red; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes blink {
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+#approveBtn {
+    background: transparent;
+    border: 2px solid red;
+    color: red;
+    padding: 10px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+#approveBtn:hover {
+    background: red;
+    color: black;
+    box-shadow: 0 0 20px red;
+}
+
+p { 
+    font-size: 15px; 
+}
+
+h2 {
+    font-size: 30px; 
+}
+</style>
+
+<script>
+function goTo(page){window.location.href=page;}
+
+const message = "Hello, this is Corporate IT Administration. We detected suspicious activity on your account originating from an external IP address. To prevent account suspension, you must immediately verify your credentials and approve emergency access authorization.";
+
+let i = 0;
+
+function typeWriter() {
+    if (i < message.length) {
+        document.getElementById("fakeMessage").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 35);
+    } else {
+        document.getElementById("urgent").style.display = "block";
+        document.getElementById("approveBtn").style.display = "inline-block";
+    }
+}
+
+function revealAttack(){
+    document.getElementById("result").innerHTML =
+    "<span style='color:red; font-weight:bold;'>Access Granted.</span><br><br>" +
+    "You have just fallen for a simulated impersonation attack.<br><br>" +
+    "The attacker exploited:<br>" +
+    "- Authority (\"Corporate IT Administration\")<br>" +
+    "- Urgency (\"immediately\")<br>" +
+    "- Fear (\"account suspension\")<br><br>" +
+    "No malware. No hacking tools. Just psychological manipulation.";
+}
+
+window.onload = function(){
+    setTimeout(typeWriter, 1000);
+};
+</script>
+</head>
+
+<body>
+
+<nav>
+<button onclick="goTo('home.html')">Home</button>
+<button onclick="goTo('impersonation.html')">Impersonation</button>
+<button onclick="goTo('phishing.html')">Phishing</button>
+<button onclick="goTo('scareware.html')">Scareware</button>
+</nav>
+
+<h1>Impersonation Attacks</h1>
+
+<!-- Simulation Section (Now properly placed under title) -->
+<div class="card simulation-card">
+<h2>⚠ WARNING MESSAGE ⚠</h2>
+
+<p id="fakeMessage"></p>
+
+<div id="urgent" style="display:none; font-size: 25px; color:red; animation: blink 1s infinite;">
+⚠ URGENT: Immediate Action Required ⚠
+</div>
+
+<button id="approveBtn" style="display:none;" onclick="revealAttack()">
+Approve Emergency Access
+</button>
+
+<p id="result" style="margin-top:20px;"></p>
+</div>
+
+<div class="card">
+<p>Impersonation social engineering attacks exploit trust, 
+authority, and insider knowledge to bypass technical defenses entirely.
+Attackers meticulously research their targets — scraping emails, LinkedIn profiles, company directories, 
+or even social media — to craft highly believable personas.</p>
+</div>
+
+<div class="card"> 
+<p>They might pose as executives, IT administrators, helpdesk technicians, or external contractors. 
+Using pretexting, they create a scenario that makes victims feel obligated or pressured to comply, 
+often invoking urgency, fear of disciplinary action, or corporate compliance.</p>
+</div>
+
+<div class="card">
+<p>The frightening part? Technical controls like firewalls, intrusion detection systems, 
+and multi-factor authentication mean nothing if a user willingly discloses credentials, 
+approves a fraudulent transaction, or installs a malicious payload.</p>
+</div>
+
+<div class="card">
+<p>The scariest truth: The attacker never “hacks” the system. They hack the human. One well-crafted 
+impersonation, one moment of trust, and they have total access — all without leaving a single trace 
+in your logs.</p>
+</div>
+
+</body>
+</html>

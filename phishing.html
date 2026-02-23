@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Phishing Attacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Consolas', monospace;
+    background: linear-gradient(180deg, #001f3f, #001a33);
+    color: #00ffff;
+    overflow-x: hidden;
+}
+
+/* Scan line effect */
+body::after {
+    content:"";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 2px,
+        rgba(0,255,255,0.05) 3px
+    );
+    pointer-events: none;
+}
+
+/* Navigation */
+nav {
+    background: #000814;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid #00ffff;
+}
+
+nav button {
+    background: transparent;
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+nav button:hover {
+    background: #00ffff;
+    color: black;
+    box-shadow: 0 0 20px #00ffff;
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    margin-top: 40px;
+    text-shadow: 0 0 15px #00ffff;
+}
+
+/* Card */
+.card {
+    background: #002b55;
+    padding: 25px;
+    margin: 30px auto;
+    width: 80%;
+    border-left: 5px solid #00ffff;
+    box-shadow: 0 0 15px #00ffff55;
+}
+
+/* Fake scanning animation */
+.scan {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {opacity: 1;}
+    50% {opacity: 0.3;}
+    100% {opacity: 1;}
+}
+
+/* === EMAIL SIMULATION === */
+
+.email-card {
+    background: #001d3d;
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 25px #00ffffaa;
+    animation: fadeIn 1s ease-in;
+}
+
+.email-header {
+    border-bottom: 1px solid #00ffff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.fake-link {
+    color: #00ff88;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.fake-link:hover {
+    color: red;
+    text-shadow: 0 0 10px red;
+}
+
+.real-url {
+    display: none;
+    font-size: 14px;
+    color: red;
+    margin-top: 5px;
+}
+
+.warning {
+    margin-top: 15px;
+    color: red;
+    font-weight: bold;
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+p {
+    font-size: 15px; 
+}
+
+li { 
+    font-size: 15px; 
+}
+
+h2 {
+    font-size: 20px;
+}
+</style>
+
+<script>
+function goTo(page) {
+    window.location.href = page;
+}
+
+const emailText = 
+"From: security@paypaI.com\n" +
+"Subject: URGENT: Account Suspension Notice\n\n" +
+"Dear Customer,\n\n" +
+"We detected unusual login attempts on your account. " +
+"To avoid permanent suspension, please verify your information immediately below.\n\n";
+
+let i = 0;
+
+function typeEmail() {
+    if (i < emailText.length) {
+        document.getElementById("emailBody").innerText += emailText.charAt(i);
+        i++;
+        setTimeout(typeEmail, 20);
+    } else {
+        document.getElementById("phishLink").style.display = "inline";
+    }
+}
+
+function showRealURL() {
+    document.getElementById("realURL").style.display = "block";
+}
+
+function clickPhish() {
+    document.getElementById("warning").style.display = "block";
+}
+
+window.onload = function() {
+    setTimeout(typeEmail, 1000);
+};
+</script>
+
+</head>
+
+<body>
+
+<nav>
+<button onclick="goTo('home.html')">Home</button>
+<button onclick="goTo('impersonation.html')">Impersonation</button>
+<button onclick="goTo('phishing.html')">Phishing</button>
+<button onclick="goTo('scareware.html')">Scareware</button>
+</nav>
+
+<h1>Phishing Attacks</h1>
+
+<div class="scan">Scanning incoming email traffic...</div>
+
+<!-- EMAIL SIMULATION (MOVED HERE) -->
+<div class="card email-card">
+<h2>⚠ Live Email Simulation</h2>
+
+<div class="email-header">
+Incoming Email Detected...
+</div>
+
+<pre id="emailBody" style="white-space: pre-wrap;"></pre>
+
+<span id="phishLink" class="fake-link" style="display:none;"
+      onmouseover="showRealURL()" onclick="clickPhish()">
+https://www.paypal.com/login
+</span>
+
+<div id="realURL" class="real-url">
+Actual URL: http://paypaI-security-verification.ru
+</div>
+
+<div id="warning" class="warning">
+⚠ Credentials Captured — This was a phishing simulation.<br>
+Notice the subtle domain misspelling: capital "I" instead of "l".
+</div>
+
+</div>
+
+<div class="card">
+<h2>What is Phishing?</h2>
+<p>
+Phishing is a deceptive attack where cybercriminals send fraudulent emails,
+messages, or websites that appear legitimate in order to steal credentials,
+financial information, or sensitive data.
+</p>
+</div>
+
+<div class="card">
+<h2>Common Types</h2>
+<ul>
+<li>Email Phishing</li>
+<li>Spear Phishing (Targeted)</li>
+<li>Smishing (SMS)</li>
+<li>Vishing (Voice)</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>How to Detect It</h2>
+<ul>
+<li>Suspicious sender address</li>
+<li>Urgent language or threats</li>
+<li>Unexpected attachments</li>
+<li>Fake login pages</li>
+</ul>
+</div>
+
+</body>
+</html>
